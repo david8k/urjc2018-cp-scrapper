@@ -1,0 +1,27 @@
+{
+  "name": "urjc2018-cp-scrapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/david8k/urjc2018-cp-scrapper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/david8k/urjc2018-cp-scrapper/issues"
+  },
+  "homepage": "https://github.com/david8k/urjc2018-cp-scrapper#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.2",
+    "express-vue": "^4.0.13",
+    "isomorphic-fetch": "^2.2.1",
+    "mongoose": "^5.0.1",
+    "node-schedule": "^1.3.0"
+  }
+}
