@@ -15,7 +15,7 @@ module.exports.crawl = (users, problem_codes) => {
           user,
           problem_code,
           domain: 'SPOJ',
-          solved: problems.indexOf(problem_code) !== -1,
+          solved: problems.some(problem => problem.indexOf(problem_code) !== -1),
         };
       });
     });

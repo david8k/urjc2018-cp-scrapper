@@ -14,8 +14,25 @@ module.exports.getProblemsFromCategory = category => {
   return Problem.find({ category });
 };
 
+module.exports.getProblems = () => {
+  return Problem.find({});
+};
+
 module.exports.getUsers = () => {
   return User.find({});
+};
+
+module.exports.solveProblem = async(code, domain, handler) => {
+  if(domain === 'AER'){
+    const problem = await Problem.findOne({ problem_code: code, domain });
+    const user = await User.findOne({ aer_handler: handler });
+    return UserProblem.update({ problem: problem._id, user: user._id }, { $set: { solved: true } }, { upsert: true });
+  }
+  else if(domain === 'SPOJ'){
+    const problem = await Problem.findOne({ problem_code: code, domain });
+    const user = await User.findOne({ spoj_handler: handler });
+    return UserProblem.update({ problem: problem._id, user: user._id }, { $set: { solved: true } }, { upsert: true });
+  }
 };
 
 module.exports.getUser = (handler_type, handler) => {
@@ -26,6 +43,36 @@ module.exports.getUser = (handler_type, handler) => {
     return User.findOne({ aer_handler: handler });
   }
   return {};
+};
+
+module.exports.getUserProblemsFromCategory = category => {
+  return UserProblem.aggregate([
+    {
+      $lookup: {
+        from: "problems",
+        localField: "problem",
+        foreignField: "_id",
+        as: "problems"
+      }
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "user",
+        foreignField: "_id",
+        as: "users"
+      }
+    },
+    {
+      $unwind: "$problems"
+    },
+    {
+      $unwind: "$users"
+    },
+    {
+      $match: { "problems.category": category }
+    }
+  ]);
 };
 
 module.exports.getProblem = (domain, problem_code) => {
