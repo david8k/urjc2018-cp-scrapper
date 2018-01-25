@@ -6,8 +6,8 @@ const USERS = [{
   identifier: 'David Morán',
   spoj_handler: 'david_8k',
   aer_handler: '2226',
-}, {
-}];
+}
+];
 
 Promise.all(USERS.map(user => {
   return controller.createUser(user);

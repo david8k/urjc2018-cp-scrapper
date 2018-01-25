@@ -10,6 +10,8 @@ const spoj = require('./crawlers/spoj');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const CATEGORIES = ['SEMANA 1'];
+
 const vueOptions = {
   rootPath: path.join(__dirname, './views'),
   layout: {
@@ -43,10 +45,11 @@ const vueOptions = {
 const expressVueMiddleware = expressVue.init(vueOptions);
 app.use(expressVueMiddleware);
 
-app.get('/', async(req, res) => {
-  const problems = await controller.getProblemsFromCategory('SEMANA 1');
+app.get(/^\/(SEMANA\%20\d+)\/$/, async(req, res) => {
+  const category = req.params[0];
+  const problems = await controller.getProblemsFromCategory(category);
   const users = await controller.getUsers();
-  const users_problems = await controller.getUserProblemsFromCategory('SEMANA 1');
+  const users_problems = await controller.getUserProblemsFromCategory(category);
   const rows = [];
   const cols = [];
   const matrix = new Array(users.length)
@@ -67,11 +70,40 @@ app.get('/', async(req, res) => {
     });
   });
   const data = {
-    category: 'SEMANA 1',
+    category: category,
     problems,
     cols,
     rows,
     matrix
+  };
+  res.renderVue('week', data, { head: { title: 'URJC Training - ' + category } });
+});
+
+app.get('/', async(req, res) => {
+  const users = await controller.getUsers();
+  const rows = [];
+  const cols = CATEGORIES;
+  const sums = new Array(users.length).fill(null).map(() => {
+    return { total: 0, current: 0 };
+  });
+  const matrix = new Array(users.length)
+    .fill(null)
+    .map(() => new Array(CATEGORIES.length));
+  users.forEach(user => {
+    rows.push(user.identifier);
+  });
+  await Promise.all(users.map(async(user, i) => {
+    return Promise.all(CATEGORIES.map(async(category, j) => {
+      matrix[i][j] = await controller.getProblemsCount(user, category);
+      sums[i].current += matrix[i][j].current;
+      sums[i].total += matrix[i][j].total;
+    }));
+  }));
+  const data = {
+    cols,
+    rows,
+    matrix,
+    sums,
   };
   res.renderVue('main', data, { head: { title: 'Training Info' } });
 });

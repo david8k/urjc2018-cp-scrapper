@@ -11,14 +11,20 @@
         <thead>
             <td style="font-weight: bold; text-align: center">USUARIO</td>
             <td style="font-weight: bold; text-align: center" v-for="col of cols">
-              <a target="_blank" :href="col.url">{{col.code}}</a>
+              <a target="_blank" :href="'/'+col">{{col}}</a>
             </td>
+            <td style="font-weight: bold; text-align: center">PROGRESO</td>
         </thead>
         <tbody>
           <tr v-for="(row, i) in rows">
             <td style="font-weight: bold; text-align: center">{{row}}</td>
-            <td style="text-align: center" v-for="(col, j) in cols" :class="matrix[i][j] ? 'bg-success':'bg-light'">
-              {{ matrix[i][j] ? 'AC': ' - ' }}
+            <td style="text-align: center" v-for="(col, j) in cols">
+              {{ matrix[i][j].current +' / '+matrix[i][j].total }}
+            </td>
+            <td width="10%">
+              <div class="progress">
+                <div class="progress-bar bg-warning" role="progressbar" :style="'width:'+(sums[i].current/sums[i].total*100.0)+'%'" :aria-valuenow="sums[i].current/sums[i].total*100.0" aria-valuemin="0"></div>
+              </div>
             </td>
           </tr>
         </tbody>

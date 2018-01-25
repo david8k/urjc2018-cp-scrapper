@@ -45,6 +45,41 @@ module.exports.getUser = (handler_type, handler) => {
   return {};
 };
 
+module.exports.getProblemsCount = async(user, category) => {
+  const total_problems = await Problem.find({ category }).count();
+  const solved_problems = await UserProblem.aggregate([
+    {
+      $lookup: {
+        from: "problems",
+        localField: "problem",
+        foreignField: "_id",
+        as: "problems"
+      }
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "user",
+        foreignField: "_id",
+        as: "users"
+      }
+    },
+    {
+      $unwind: "$problems"
+    },
+    {
+      $unwind: "$users"
+    },
+    {
+      $match: { "problems.category": category, "users._id": user._id }
+    }
+  ]);
+  return {
+    current: solved_problems.length,
+    total: total_problems
+  };
+};
+
 module.exports.getUserProblemsFromCategory = category => {
   return UserProblem.aggregate([
     {
