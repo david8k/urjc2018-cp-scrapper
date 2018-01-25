@@ -14,5 +14,5 @@ Promise.all(USERS.map(user => {
 })).then(res => {
   console.log(res);
   console.log('DONE IMPORTING!');
-  return 'ok';
+  process.exit(0);
 });

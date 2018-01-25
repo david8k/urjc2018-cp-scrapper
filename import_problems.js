@@ -59,5 +59,5 @@ Promise.all(PROBLEMS.map(problem => {
 })).then(res => {
   console.log(res);
   console.log('DONE IMPORTING!');
-  return 'ok';
+  process.exit(0);
 });
