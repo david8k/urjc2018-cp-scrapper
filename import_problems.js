@@ -8,10 +8,10 @@ const PROBLEMS = [{
   category: 'SEMANA 1',
   url: 'https://www.aceptaelreto.com/problem/statement.php?id=116'
 }, {
-  problem_code: '101 - ',
+  problem_code: '140 - ',
   domain: 'AER',
   category: 'SEMANA 1',
-  url: 'https://www.aceptaelreto.com/problem/statement.php?id=101'
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=140'
 }, {
   problem_code: '435 - ',
   domain: 'AER',
