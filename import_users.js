@@ -10,6 +10,14 @@ const USERS = [{
   identifier: 'JoseMiguel92',
   spoj_handler: 'josemiguel_92',
   aer_handler: '8914',
+}, {
+  identifier: 'Jakub Luczyn',
+  spoj_handler: 'jjluczyn',
+  aer_handler: '5095',
+}, {
+  identifier: 'Isaac Lozano Osorio',
+  spoj_handler: 'isaaclo97',
+  aer_handler: '4920',
 }
 ];
 
