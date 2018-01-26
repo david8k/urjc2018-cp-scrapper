@@ -51,7 +51,7 @@ const PROBLEMS = [{
   problem_code: '325 - ',
   domain: 'AER',
   category: 'SEMANA 1',
-  url: 'https://www.aceptaelreto.com/problem/mysubmissions.php?id=325'
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=325'
 }];
 
 Promise.all(PROBLEMS.map(problem => {
