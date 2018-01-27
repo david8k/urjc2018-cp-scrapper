@@ -18,6 +18,18 @@ const USERS = [{
   identifier: 'Isaac Lozano Osorio',
   spoj_handler: 'isaaclo97',
   aer_handler: '4920',
+}, {
+  identifier: 'EvaH',
+  spoj_handler: 'Eva87',
+  aer_handler: '8916',
+}, {
+  identifier: 'Iván Martín',
+  spoj_handler: 'las_mas_debugs',
+  aer_handler: '8640',
+}, {
+  identifier: 'Laura Alvarez',
+  spoj_handler: 'laura_aj',
+  aer_handler: '8917',
 }
 ];
 
