@@ -30,6 +30,22 @@ const USERS = [{
   identifier: 'Laura Alvarez',
   spoj_handler: 'laura_aj',
   aer_handler: '8917',
+}, {
+  identifier: 'León Castillejos',
+  spoj_handler: 'p3450',
+  aer_handler: '4914',
+}, {
+  identifier: 'Helena García',
+  spoj_handler: 'h_garciago96',
+  aer_handler: '8922',
+}, {
+  identifier: 'David Mestanza',
+  spoj_handler: 'davidm_369',
+  aer_handler: '8923',
+}, {
+  identifier: 'Luis Miguel',
+  spoj_handler: 'luismii',
+  aer_handler: '7273',
 }
 ];
 
