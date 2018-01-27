@@ -46,6 +46,10 @@ const USERS = [{
   identifier: 'Luis Miguel',
   spoj_handler: 'luismii',
   aer_handler: '7273',
+}, {
+  identifier: 'Pablo San Juan',
+  spoj_handler: 'pabloskijs',
+  aer_handler: '8924',
 }
 ];
 
