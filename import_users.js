@@ -58,6 +58,14 @@ const USERS = [{
   identifier: 'Marcos Vázquez',
   spoj_handler: 'marcosvm13',
   aer_handler: '8926',
+}, {
+  identifier: 'Rodrigo',
+  spoj_handler: 'rodrima99',
+  aer_handler: '8928',
+}, {
+  identifier: 'JoseFco',
+  spoj_handler: 'josefco',
+  aer_handler: '6271',
 }
 //incluidos hasta el 14
 ];
