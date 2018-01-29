@@ -106,8 +106,13 @@ const USERS = [{
   identifier: 'Sergio Perez',
   spoj_handler: 'n_tesla',
   aer_handler: '2248',
+}, {
+  identifier: 'Juan David',
+  spoj_handler: 'jdavid18k',
+  aer_handler: '8950',
 }
-//incluidos hasta el 27 (Sergio)
+//el 28 no puso handler para acepta el raton
+//incluidos hasta el 29 (yo - juandavid)
 ];
 
 Promise.all(USERS.map(user => {
