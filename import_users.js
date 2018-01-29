@@ -86,8 +86,16 @@ const USERS = [{
   identifier: 'José Hernández',
   spoj_handler: 'jose_he_ch',
   aer_handler: '7257',
+}, {
+  identifier: 'Mónica',
+  spoj_handler: 'mpastor',
+  aer_handler: '8921',
+}, {
+  identifier: 'Daniel Rosado',
+  spoj_handler: 'drosado',
+  aer_handler: '8939',
 }
-//incluidos hasta el 22
+//incluidos hasta el 24
 ];
 
 Promise.all(USERS.map(user => {
