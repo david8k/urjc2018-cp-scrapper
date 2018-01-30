@@ -44,7 +44,7 @@ export default {
       const minutes = this_date.getMinutes();
       const seconds = this_date.getSeconds();
       const now_date = new Date();
-      const target_date = now_date.setMinutes(parseInt(minutes/20)*20+20, 0, 0);
+      const target_date = now_date.setMinutes(parseInt(minutes/20)*20+20, 10, 0);
       let next_hours = parseInt((target_date - this_date) / 1000);
       let next_seconds = parseInt(next_hours) % 60;
       next_hours /= 60;
