@@ -37,6 +37,9 @@ const vueOptions = {
         {
           script: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'
         },
+        {
+          script: 'https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js'
+        },
       ]
     }
   }
