@@ -37,7 +37,7 @@
 <script>
 export default {
   data: function(){ return {}; },
-  created: function(){
+  mounted: function(){
     setInterval(function(){
       const this_date = new Date();
       const hours = this_date.getHours();
