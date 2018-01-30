@@ -48,7 +48,7 @@ const vueOptions = {
 const expressVueMiddleware = expressVue.init(vueOptions);
 app.use(expressVueMiddleware);
 
-app.get(/^\/(SEMANA\%20\d+)\/$/, async(req, res) => {
+app.get(/^\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res) => {
   const category = req.params[0];
   const problems = await controller.getProblemsFromCategory(category);
   const users = await controller.getUsers();
