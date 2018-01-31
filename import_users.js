@@ -130,8 +130,12 @@ const USERS = [{
   identifier: 'Sergio',
   spoj_handler: 'sergete',
   aer_handler: '8969',
+}, {
+  identifier: 'Jesús',
+  spoj_handler: 'j_borrerog_98',
+  aer_handler: '8973',
 }
-//incluidos hasta el 34 (Sergio)
+//incluidos hasta el 34 (Jesús)
 ];
 
 Promise.all(USERS.map(user => {
