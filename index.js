@@ -128,7 +128,6 @@ schedule.scheduleJob('*/20 * * * *', async() => {
     return Promise.resolve(null);
   }));
   const spoj_responses = (await spoj.crawl(spoj_users, spoj_problems)).reduce((a,b) => a.concat(b), []);
-  console.log(spoj_responses);
   await Promise.all(spoj_responses.map(async(response) => {
     if(response.solved){
       return await controller.solveProblem(response.problem_code, response.domain, response.user);
