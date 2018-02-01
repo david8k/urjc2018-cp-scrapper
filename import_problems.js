@@ -52,6 +52,57 @@ const PROBLEMS = [{
   domain: 'AER',
   category: 'SEMANA 1',
   url: 'https://www.aceptaelreto.com/problem/statement.php?id=325'
+
+}, {
+  problem_code: 'CTRICK',
+  domain: 'SPOJ',
+  category: 'SEMANA 2-1',
+  url: 'http://www.spoj.com/problems/CTRICK/'
+}, {
+  problem_code: 'CPRMT',
+  domain: 'SPOJ',
+  category: 'SEMANA 2-1',
+  url: 'http://www.spoj.com/problems/CPRMT/'
+}, {
+  problem_code: 'ARDA1',
+  domain: 'SPOJ',
+  category: 'SEMANA 2-1',
+  url: 'http://www.spoj.com/problems/ARDA1/'
+}, {
+  problem_code: 'KROW',
+  domain: 'SPOJ',
+  category: 'SEMANA 2-1',
+  url: 'http://www.spoj.com/problems/KROW/'
+}, {
+  problem_code: 'DRAWM',
+  domain: 'SPOJ',
+  category: 'SEMANA 2-1',
+  url: 'http://www.spoj.com/problems/DRAWM/'
+}, {
+  problem_code: '441 - ',
+  domain: 'AER',
+  category: 'SEMANA 2-1',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=441'
+}, {
+  problem_code: '345 - ',
+  domain: 'AER',
+  category: 'SEMANA 2-1',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=345'
+}, {
+  problem_code: '290 - ',
+  domain: 'AER',
+  category: 'SEMANA 2-1',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=290'
+}, {
+  problem_code: '328 - ',
+  domain: 'AER',
+  category: 'SEMANA 2-1',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=328'
+}, {
+  problem_code: 'BEENUMS',
+  domain: 'AER',
+  category: 'SEMANA 2-1',
+  url: 'http://www.spoj.com/problems/BEENUMS/'
 }];
 
 Promise.all(PROBLEMS.map(problem => {
