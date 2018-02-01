@@ -115,7 +115,7 @@ app.listen(PORT, () => {
   console.log('Server is on');
 });
 
-schedule.scheduleJob('*/5 * * * *', async() => {
+schedule.scheduleJob('*/20 * * * *', async() => {
   const aer_users = (await controller.getUsers()).map(user => user.aer_handler);
   const spoj_users = (await controller.getUsers()).map(user => user.spoj_handler);
   const aer_problems = (await controller.getProblems()).filter(p => p.domain === 'AER').map(p => p.problem_code);
