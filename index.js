@@ -10,7 +10,7 @@ const spoj = require('./crawlers/spoj');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const CATEGORIES = ['SEMANA 1'];
+const CATEGORIES = ['SEMANA 1', 'SEMANA 2-1'];
 
 const vueOptions = {
   rootPath: path.join(__dirname, './views'),
