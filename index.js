@@ -62,7 +62,7 @@ app.get(/^\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res) => {
     rows.push(user.identifier);
   });
   problems.forEach(problem => {
-    cols.push({ url: problem.url, code: problem.problem_code });
+    cols.push({ url: problem.url, code: problem.problem_code, difficulty: new Array(problem.difficulty).fill('*').join('') });
   });
   users.forEach((user, i) => {
     problems.forEach((problem, j) => {
@@ -115,7 +115,7 @@ app.listen(PORT, () => {
   console.log('Server is on');
 });
 
-schedule.scheduleJob('*/20 * * * *', async() => {
+schedule.scheduleJob('*/5 * * * *', async() => {
   const aer_users = (await controller.getUsers()).map(user => user.aer_handler);
   const spoj_users = (await controller.getUsers()).map(user => user.spoj_handler);
   const aer_problems = (await controller.getProblems()).filter(p => p.domain === 'AER').map(p => p.problem_code);
@@ -128,6 +128,7 @@ schedule.scheduleJob('*/20 * * * *', async() => {
     return Promise.resolve(null);
   }));
   const spoj_responses = (await spoj.crawl(spoj_users, spoj_problems)).reduce((a,b) => a.concat(b), []);
+  console.log(spoj_responses);
   await Promise.all(spoj_responses.map(async(response) => {
     if(response.solved){
       return await controller.solveProblem(response.problem_code, response.domain, response.user);

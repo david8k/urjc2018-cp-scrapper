@@ -5,6 +5,7 @@ const problemsSchema = new mongoose.Schema({
   domain: { type: String },
   category: { type: String },
   url: { type: String },
+  difficulty: { type: Number },
 });
 
 module.exports = mongoose.model('Problems', problemsSchema);
