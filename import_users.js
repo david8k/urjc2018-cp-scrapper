@@ -142,6 +142,18 @@ const USERS = [{
   identifier: 'ddominguez',
   spoj_handler: 'ddominguez',
   aer_handler: '8948',
+}, {
+  identifier: 'Roberto Toaza',
+  spoj_handler: 'brownsugar',
+  aer_handler: '8964',
+}, {
+  identifier: 'Was',
+  spoj_handler: 'was17',
+  aer_handler: '8994',
+}, {
+  identifier: 'Luis Caumel',
+  spoj_handler: 'caumel',
+  aer_handler: '9008',
 }
 //incluidos hasta el 36 ()
 ];
