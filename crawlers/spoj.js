@@ -9,13 +9,15 @@ module.exports.crawl = (users, problem_codes) => {
       return response.text();
     }).then(body => {
       const $ = cheerio.load(body, { decodeEntities: false });
-      const problems = $('table.table:nth-child(2) > tbody > tr > td').toArray().map(node => $(node).text());
+      const solved_problems = $('table.table:nth-child(2) > tbody > tr > td').toArray().map(node => $(node).text());
+      const unsolved_problems = $('table.table:nth-child(4) > tbody > tr > td').toArray().map(node => $(node).text());
       return problem_codes.map(problem_code => {
         return {
           user,
           problem_code,
           domain: 'SPOJ',
-          solved: problems.some(problem => problem.indexOf(problem_code) !== -1),
+          solved: solved_problems.some(problem => problem.indexOf(problem_code) !== -1),
+          tried: unsolved_problems.some(problem => problem.indexOf(problem_code) !== -1),
         };
       });
     });

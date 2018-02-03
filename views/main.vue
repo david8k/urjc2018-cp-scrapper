@@ -20,11 +20,12 @@
           <tr v-for="(row, i) in rows">
             <td style="font-weight: bold; text-align: center">{{row}}</td>
             <td style="text-align: center" v-for="(col, j) in cols">
-              {{ matrix[i][j].current +' / '+matrix[i][j].total }}
+              {{ matrix[i][j].solved +' / '+matrix[i][j].total }}
             </td>
             <td width="10%">
               <div class="progress">
-                <div class="progress-bar bg-warning" role="progressbar" :style="'width:'+(sums[i].current/sums[i].total*100.0)+'%'" :aria-valuenow="sums[i].current/sums[i].total*100.0" aria-valuemin="0"></div>
+                <div class="progress-bar bg-success" role="progressbar" :style="'width:'+(acs[i].current/acs[i].total*100.0)+'%'" :aria-valuenow="acs[i].current/acs[i].total*100.0" aria-valuemin="0"></div>
+                <div class="progress-bar bg-warning" role="progressbar" :style="'width:'+(noks[i].current/noks[i].total*100.0)+'%'" :aria-valuenow="noks[i].current/noks[i].total*100.0" aria-valuemin="0"></div>
               </div>
             </td>
           </tr>
@@ -44,7 +45,7 @@ export default {
       const minutes = this_date.getMinutes();
       const seconds = this_date.getSeconds();
       const now_date = new Date();
-      const target_date = now_date.setMinutes(parseInt(minutes/20)*20+20, 10, 0);
+      const target_date = now_date.setMinutes(parseInt(minutes/20)*20+20, 0, 0);
       let next_hours = parseInt((target_date - this_date) / 1000);
       let next_seconds = parseInt(next_hours) % 60;
       next_hours /= 60;

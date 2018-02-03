@@ -13,8 +13,8 @@
         <tbody>
           <tr v-for="(row, i) in rows">
             <td style="font-weight: bold; text-align: center">{{row}}</td>
-            <td style="text-align: center" v-for="(col, j) in cols" :class="matrix[i][j] ? 'bg-success':'bg-light'">
-              {{ matrix[i][j] ? 'AC': ' - ' }}
+            <td style="text-align: center" v-for="(col, j) in cols" :class="matrix[i][j] === 0 ? 'bg-success': (matrix[i][j] === 1 ? 'bg-warning': 'bg-light')">
+              {{ matrix[i][j] === 0 ? 'AC': (matrix[i][j] === 1 ? 'TRIED' : ' - ') }}
             </td>
           </tr>
         </tbody>

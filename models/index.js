@@ -22,16 +22,16 @@ module.exports.getUsers = () => {
   return User.find({});
 };
 
-module.exports.solveProblem = async(code, domain, handler) => {
+module.exports.solveProblem = async(code, domain, handler, solved, tried) => {
   if(domain === 'AER'){
     const problem = await Problem.findOne({ problem_code: code, domain });
     const user = await User.findOne({ aer_handler: handler });
-    return UserProblem.update({ problem: problem._id, user: user._id }, { $set: { solved: true } }, { upsert: true });
+    return UserProblem.update({ problem: problem._id, user: user._id }, { $set: { solved, tried } }, { upsert: true });
   }
   else if(domain === 'SPOJ'){
     const problem = await Problem.findOne({ problem_code: code, domain });
     const user = await User.findOne({ spoj_handler: handler });
-    return UserProblem.update({ problem: problem._id, user: user._id }, { $set: { solved: true } }, { upsert: true });
+    return UserProblem.update({ problem: problem._id, user: user._id }, { $set: { solved, tried } }, { upsert: true });
   }
 };
 
@@ -71,11 +71,39 @@ module.exports.getProblemsCount = async(user, category) => {
       $unwind: "$users"
     },
     {
-      $match: { "problems.category": category, "users._id": user._id }
+      $match: { "problems.category": category, "users._id": user._id, "solved": true }
+    }
+  ]);
+  const unsolved_problems = await UserProblem.aggregate([
+    {
+      $lookup: {
+        from: "problems",
+        localField: "problem",
+        foreignField: "_id",
+        as: "problems"
+      }
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "user",
+        foreignField: "_id",
+        as: "users"
+      }
+    },
+    {
+      $unwind: "$problems"
+    },
+    {
+      $unwind: "$users"
+    },
+    {
+      $match: { "problems.category": category, "users._id": user._id, "tried": true }
     }
   ]);
   return {
-    current: solved_problems.length,
+    solved: solved_problems.length,
+    tried: unsolved_problems.length,
     total: total_problems
   };
 };
