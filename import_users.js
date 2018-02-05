@@ -174,8 +174,12 @@ const USERS = [{
   identifier: 'Jorge Galindo',
   spoj_handler: 'galing1995',
   aer_handler: '9020',
+}, {
+  identifier: 'DarwinCHG',
+  spoj_handler: 'darwin_chg',
+  aer_handler: '8919',
 }
-//incluidos hasta el 44 (Jorge Galindo)
+//incluidos hasta el 46 (darwin)
 ];
 
 Promise.all(USERS.map(user => {
