@@ -178,6 +178,10 @@ const USERS = [{
   identifier: 'DarwinCHG',
   spoj_handler: 'darwin_chg',
   aer_handler: '8919',
+}, {
+  identifier: 'Miguel Benito',
+  spoj_handler: 'mbenitog',
+  aer_handler: '9029',
 }
 //incluidos hasta el 46 (darwin)
 ];
