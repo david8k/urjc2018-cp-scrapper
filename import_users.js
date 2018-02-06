@@ -154,8 +154,36 @@ const USERS = [{
   identifier: 'Luis Caumel',
   spoj_handler: 'caumel',
   aer_handler: '9008',
+}, {
+  identifier: 'Anca Butnar',
+  spoj_handler: 'agbutnar',
+  aer_handler: '9013',
+}, {
+  identifier: 'Diego Silva',
+  spoj_handler: 'dsilval',
+  aer_handler: '9015',
+}, {
+  identifier: 'DiegoJ',
+  spoj_handler: 'diegojbravo',
+  aer_handler: '9016',
+}, {
+  identifier: 'David Payán',
+  spoj_handler: 'd_payan',
+  aer_handler: '9019',
+}, {
+  identifier: 'Jorge Galindo',
+  spoj_handler: 'galing1995',
+  aer_handler: '9020',
+}, {
+  identifier: 'DarwinCHG',
+  spoj_handler: 'darwin_chg',
+  aer_handler: '8919',
+}, {
+  identifier: 'Miguel Benito',
+  spoj_handler: 'mbenitog',
+  aer_handler: '9029',
 }
-//incluidos hasta el 36 ()
+//incluidos hasta el 48 ()
 ];
 
 Promise.all(USERS.map(user => {
