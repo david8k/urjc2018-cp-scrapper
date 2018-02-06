@@ -182,9 +182,8 @@ const USERS = [{
   identifier: 'Miguel Benito',
   spoj_handler: 'mbenitog',
   aer_handler: '9029',
-}
+}];
 //incluidos hasta el 48 ()
-];
 
 Promise.all(USERS.map(user => {
   return controller.createUser(user);
