@@ -194,8 +194,12 @@ const USERS = [{
   identifier: 'Jorge Sánchez',
   spoj_handler: 'jorge0594',
   aer_handler: '8777',
+}, {
+  identifier: 'Renato',
+  spoj_handler: 'orluzuriaga', //no esta inscrito
+  aer_handler: '9079',
 }];
-//incluidos hasta el 50
+//incluidos hasta el 51
 
 Promise.all(USERS.map(user => {
   return controller.createUser(user);
