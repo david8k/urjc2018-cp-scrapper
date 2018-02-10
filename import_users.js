@@ -198,8 +198,56 @@ const USERS = [{
   identifier: 'Renato',
   spoj_handler: 'orluzuriaga', //no esta inscrito
   aer_handler: '9079',
+}, {
+  identifier: 'María',
+  spoj_handler: 'mclimentg',
+  aer_handler: '9082',
+}, {
+  identifier: 'Mireya',
+  spoj_handler: 'mireya_funke',
+  aer_handler: '9083',
+}, {
+  identifier: 'Fernando Martín Espina',
+  spoj_handler: 'fernan',
+  aer_handler: '9037',
+}, {
+  identifier: 'Germán López Gutiérrez',
+  spoj_handler: 'gerlogu',
+  aer_handler: '9084',
+}, {
+  identifier: 'Oly',
+  spoj_handler: 'oly_lgns',
+  aer_handler: '9086',
+}, {
+  identifier: 'Dragos Dogaru',
+  spoj_handler: 'cd_dogaru',
+  aer_handler: '9087',
+}, {
+  identifier: 'Diego Almansa',
+  spoj_handler: 'almansad',
+  aer_handler: '8966',
+}, {
+  identifier: 'Alberto Jimenez',
+  spoj_handler: 'alberto_99',
+  aer_handler: '9093',
+}, {
+  identifier: 'Oscar Rivas',
+  spoj_handler: 'oscar_llury',
+  aer_handler: '9089',
+}, {
+  identifier: 'Guillermo',
+  spoj_handler: 'guillermo_dAA',
+  aer_handler: '9092',
+}, {
+  identifier: 'Roberto Chorro',
+  spoj_handler: 'rchorro',
+  aer_handler: '9090',
+}, {
+  identifier: 'Franco Nicola',
+  spoj_handler: 'elwolfi10',
+  aer_handler: '9100',
 }];
-//incluidos hasta el 51
+//incluidos hasta el 65
 
 Promise.all(USERS.map(user => {
   return controller.createUser(user);

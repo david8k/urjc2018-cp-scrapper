@@ -123,6 +123,67 @@ const PROBLEMS = [{
   category: 'SEMANA 2-1',
   url: 'http://www.spoj.com/problems/BEENUMS/',
   difficulty: 2,
+
+}, {
+  problem_code: 'CISTFILL',
+  domain: 'SPOJ',
+  category: 'SEMANA 2-2',
+  url: 'http://www.spoj.com/problems/CISTFILL/',
+  difficulty: 4,
+}, {
+  problem_code: 'HOMO',
+  domain: 'SPOJ',
+  category: 'SEMANA 2-2',
+  url: 'http://www.spoj.com/problems/HOMO/',
+  difficulty: 4,
+}, {
+  problem_code: 'PQUEUE',
+  domain: 'SPOJ',
+  category: 'SEMANA 2-2',
+  url: 'http://www.spoj.com/problems/PQUEUE/',
+  difficulty: 2,
+}, {
+  problem_code: '396 - ',
+  domain: 'AER',
+  category: 'SEMANA 2-2',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=396',
+  difficulty: 3,
+}, {
+  problem_code: '394 - ',
+  domain: 'AER',
+  category: 'SEMANA 2-2',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=394',
+  difficulty: 2,
+}, {
+  problem_code: '152 - ',
+  domain: 'AER',
+  category: 'SEMANA 2-2',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=152',
+  difficulty: 1,
+}, {
+  problem_code: '295 - ',
+  domain: 'AER',
+  category: 'SEMANA 2-2',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=295',
+  difficulty: 1,
+}, {
+  problem_code: '386 - ',
+  domain: 'AER',
+  category: 'SEMANA 2-2',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=386',
+  difficulty: 3,
+}, {
+  problem_code: '185 - ',
+  domain: 'AER',
+  category: 'SEMANA 2-2',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=185',
+  difficulty: 1,
+}, {
+  problem_code: 'MTHUR',
+  domain: 'SPOJ',
+  category: 'SEMANA 2-2',
+  url: 'http://www.spoj.com/problems/MTHUR/',
+  difficulty: 1,
 }];
 
 Promise.all(PROBLEMS.map(problem => {
