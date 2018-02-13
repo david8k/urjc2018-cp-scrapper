@@ -266,6 +266,10 @@ const USERS = [{
   identifier: 'David Tejero',
   spoj_handler: 'davidtb',
   aer_handler: '9137',
+}, {
+  identifier: 'Ernesto Jiménez Martínez',
+  spoj_handler: 'ernestojm',
+  aer_handler: '9130',
 }];
 //incluidos hasta el 71
 
