@@ -274,8 +274,12 @@ const USERS = [{
   identifier: 'Luis Carlos',
   spoj_handler: 'luisca_jl',
   aer_handler: '9132',
+}, {
+  identifier: 'Iván Fernández',
+  spoj_handler: 'ivanfdez212',
+  aer_handler: '9155',
 }];
-//incluidos hasta el 72 (segun numeracion del excel)
+//incluidos hasta el 74 (segun numeracion del excel)
 
 Promise.all(USERS.map(user => {
   return controller.createUser(user);
