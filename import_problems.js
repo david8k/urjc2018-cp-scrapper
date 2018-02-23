@@ -184,6 +184,67 @@ const PROBLEMS = [{
   category: 'SEMANA 2-2',
   url: 'http://www.spoj.com/problems/MTHUR/',
   difficulty: 1,
+
+}, {
+  problem_code: 'SGAME',
+  domain: 'SPOJ',
+  category: 'SEMANA 3',
+  url: 'http://www.spoj.com/problems/SGAME/',
+  difficulty: 1,
+}, {
+  problem_code: '352 - ',
+  domain: 'AER',
+  category: 'SEMANA 3',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=352',
+  difficulty: 2,
+}, {
+  problem_code: 'IGALAXY',
+  domain: 'SPOJ',
+  category: 'SEMANA 3',
+  url: 'http://www.spoj.com/problems/IGALAXY/',
+  difficulty: 4,
+}, {
+  problem_code: 'CTOI09_1',
+  domain: 'SPOJ',
+  category: 'SEMANA 3',
+  url: 'http://www.spoj.com/problems/CTOI09_1/',
+  difficulty: 6,
+}, {
+  problem_code: '319 - ',
+  domain: 'AER',
+  category: 'SEMANA 3',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=319',
+  difficulty: 3,
+}, {
+  problem_code: '257 - ',
+  domain: 'AER',
+  category: 'SEMANA 3',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=257',
+  difficulty: 2,
+}, {
+  problem_code: 'CAPCITY',
+  domain: 'SPOJ',
+  category: 'SEMANA 3',
+  url: 'http://www.spoj.com/problems/CAPCITY/',
+  difficulty: 2,
+}, {
+  problem_code: 'PFDEP',
+  domain: 'SPOJ',
+  category: 'SEMANA 3',
+  url: 'http://www.spoj.com/problems/PFDEP/',
+  difficulty: 2,
+}, {
+  problem_code: 'STAMPS',
+  domain: 'SPOJ',
+  category: 'SEMANA 3',
+  url: 'http://www.spoj.com/problems/STAMPS/',
+  difficulty: 1,
+}, {
+  problem_code: 'FASHION',
+  domain: 'SPOJ',
+  category: 'SEMANA 3',
+  url: 'http://www.spoj.com/problems/FASHION/',
+  difficulty: 1,
 }];
 
 Promise.all(PROBLEMS.map(problem => {
