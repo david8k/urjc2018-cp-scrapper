@@ -302,6 +302,22 @@ const USERS = [{
   identifier: 'Samuel',
   spoj_handler: 'simom',
   aer_handler: '9311',
+}, {
+  identifier: 'Susana Torrealba',
+  spoj_handler: 'susanat',
+  aer_handler: '8959',
+}, {
+  identifier: 'Dimonra',
+  spoj_handler: 'dimonra13',
+  aer_handler: '9324',
+}, {
+  identifier: 'Raul Martin',
+  spoj_handler: 'rmartin',
+  aer_handler: '5097',
+}, {
+  identifier: 'Jesus Elez',
+  spoj_handler: 'elez99',
+  aer_handler: '9327',
 }];
 //incluidos hasta el 80 (segun numeracion del excel)
 
