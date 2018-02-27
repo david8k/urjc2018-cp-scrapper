@@ -216,10 +216,10 @@ const PROBLEMS = [{
   url: 'https://www.aceptaelreto.com/problem/statement.php?id=319',
   difficulty: 3,
 }, {
-  problem_code: '257 - ',
+  problem_code: '253 - ',
   domain: 'AER',
   category: 'SEMANA 3',
-  url: 'https://www.aceptaelreto.com/problem/statement.php?id=257',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=253',
   difficulty: 2,
 }, {
   problem_code: 'CAPCITY',
