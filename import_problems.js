@@ -245,6 +245,49 @@ const PROBLEMS = [{
   category: 'SEMANA 3',
   url: 'http://www.spoj.com/problems/FASHION/',
   difficulty: 1,
+
+}, {
+  problem_code: '299 - ',
+  domain: 'AER',
+  category: 'SEMANA 4',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=299',
+  difficulty: 2,
+}, {
+  problem_code: 'DAVIDG',
+  domain: 'SPOJ',
+  category: 'SEMANA 4',
+  url: 'http://www.spoj.com/problems/DAVIDG/',
+  difficulty: 3,
+}, {
+  problem_code: '310 - ',
+  domain: 'AER',
+  category: 'SEMANA 4',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=310',
+  difficulty: 2,
+}, {
+  problem_code: 'CSTREET',
+  domain: 'SPOJ',
+  category: 'SEMANA 4',
+  url: 'http://www.spoj.com/problems/CSTREET/',
+  difficulty: 4,
+}, {
+  problem_code: 'BLINNET',
+  domain: 'SPOJ',
+  category: 'SEMANA 4',
+  url: 'http://www.spoj.com/problems/BLINNET/',
+  difficulty: 0,
+}, {
+  problem_code: 'EC_MODE',
+  domain: 'SPOJ',
+  category: 'SEMANA 4',
+  url: 'http://www.spoj.com/problems/EC_MODE/',
+  difficulty: 6,
+}, {
+  problem_code: 'IITWPC4I',
+  domain: 'SPOJ',
+  category: 'SEMANA 4',
+  url: 'http://www.spoj.com/problems/IITWPC4I/',
+  difficulty: 0,
 }];
 
 Promise.all(PROBLEMS.map(problem => {
