@@ -4,3 +4,19 @@ body{
 #next-update{
   color: #ff0000;
 }
+.iimportant {
+  font-size: 1.1em;
+  animation: pulse 5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    color: #ff0000;
+  }
+  50% {
+    color: #0000ff;
+  }
+  100% {
+    color: #ff0000;
+  }
+}

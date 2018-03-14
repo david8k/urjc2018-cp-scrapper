@@ -3,6 +3,7 @@
     <div class="col-10 offset-1">
       <h3>Para participar en esta tabla</h3>
       <ul>
+        <li><a class="iimportant" href="https://forms.office.com/Pages/ResponsePage.aspx?id=6sSEXw03nkuDDHVvi_G1H9OCGnqjL8xMqYdnNlEm3GpUQUZVUEZVTUVIVk82NUMyRFdPNjVYVkZWWC4u"><strong>¡IMPORTANTE!</strong> Formulario para inscribirse al Ada-Byron (Inscripciones abiertas hasta después de Semana Santa)</a></li>
         <li>Rellenar el formulario en: <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScUuImEQB3HAYjOVEN_n3iOhlIrq41XxRpZeMUfN2RiwctElA/viewform">Google</a></li>
         <li>Esperar hasta que uno de los contribuyentes te agregue manualmente.</li>
         <li>Después, todos los resultados se actualizarán cada 20 minutos.</li>

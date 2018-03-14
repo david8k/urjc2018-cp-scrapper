@@ -23,7 +23,7 @@ const vueOptions = {
       title: 'Curso de Programación Competitiva',
       meta: [
         {
-          style: './static/style.css'
+          style: '/style.css'
         },
         {
           style: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
@@ -47,6 +47,7 @@ const vueOptions = {
 
 const expressVueMiddleware = expressVue.init(vueOptions);
 app.use(expressVueMiddleware);
+app.use(express.static(path.join(__dirname, 'static')));
 
 app.get(/^\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res) => {
   const category = req.params[0];

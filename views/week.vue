@@ -2,6 +2,9 @@
   <div>
     <div class="col-10 offset-1">
       <a class="btn btn-warning float-right" href="/">Volver</a>
+      <ul>
+        <li><a class="iimportant" href="https://forms.office.com/Pages/ResponsePage.aspx?id=6sSEXw03nkuDDHVvi_G1H9OCGnqjL8xMqYdnNlEm3GpUQUZVUEZVTUVIVk82NUMyRFdPNjVYVkZWWC4u"><strong>¡IMPORTANTE!</strong> Formulario para inscribirse al Ada-Byron (Inscripciones abiertas hasta después de Semana Santa)</a></li>
+      </ul>
       <table class="table table-bordered table-hover" border="1">
         <thead>
             <td style="font-weight: bold; text-align: center">USUARIO</td>
