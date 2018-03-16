@@ -275,19 +275,50 @@ const PROBLEMS = [{
   domain: 'SPOJ',
   category: 'SEMANA 4',
   url: 'http://www.spoj.com/problems/BLINNET/',
-  difficulty: 0,
+  difficulty: 2,
 }, {
   problem_code: 'EC_MODE',
   domain: 'SPOJ',
   category: 'SEMANA 4',
   url: 'http://www.spoj.com/problems/EC_MODE/',
-  difficulty: 6,
+  difficulty: 4,
 }, {
   problem_code: 'IITWPC4I',
   domain: 'SPOJ',
   category: 'SEMANA 4',
   url: 'http://www.spoj.com/problems/IITWPC4I/',
-  difficulty: 0,
+  difficulty: 3,
+
+}, {
+  problem_code: 'CHICAGO',
+  domain: 'SPOJ',
+  category: 'SEMANA 5',
+  url: 'http://www.spoj.com/problems/CHICAGO/',
+  difficulty: 3,
+}, {
+  problem_code: 'HISIX',
+  domain: 'SPOJ',
+  category: 'SEMANA 5',
+  url: 'http://www.spoj.com/problems/HISIX/',
+  difficulty: 4,
+}, {
+  problem_code: 'FISHER',
+  domain: 'SPOJ',
+  category: 'SEMANA 5',
+  url: 'http://www.spoj.com/problems/FISHER/',
+  difficulty: 4,
+}, {
+  problem_code: 'GEORGE',
+  domain: 'SPOJ',
+  category: 'SEMANA 5',
+  url: 'http://www.spoj.com/problems/GEORGE/',
+  difficulty: 3,
+}, {
+  problem_code: '318 - ',
+  domain: 'AER',
+  category: 'SEMANA 5',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=318',
+  difficulty: 2,
 }];
 
 Promise.all(PROBLEMS.map(problem => {
