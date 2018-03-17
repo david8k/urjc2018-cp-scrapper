@@ -111,6 +111,32 @@ app.get('/', async(req, res) => {
       noks[i].total += matrix[i][j].total;
     }));
   }));
+  for(let i=0;i<users.length;i++){
+    for(let j=0;j<i;j++){
+      if(acs[j].current < acs[i].current){
+        let tmp = acs[j];
+        acs[j] = acs[i];
+        acs[i] = tmp;
+        tmp = noks[j];
+        noks[j] = noks[i];
+        noks[i] = tmp;
+        tmp = matrix[j]; 
+        matrix[j] = matrix[i];
+        matrix[i] = tmp;
+      }
+      else if(acs[j].current == acs[i].current && noks[j].current < noks[i].current){
+        let tmp = acs[j];
+        acs[j] = acs[i];
+        acs[i] = tmp;
+        tmp = noks[j];
+        noks[j] = noks[i];
+        noks[i] = tmp;
+        tmp = matrix[j]; 
+        matrix[j] = matrix[i];
+        matrix[i] = tmp;
+      }
+    }
+  }
   const data = {
     cols,
     rows,
