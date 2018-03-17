@@ -123,9 +123,9 @@ app.get('/', async(req, res) => {
         tmp = matrix[j]; 
         matrix[j] = matrix[i];
         matrix[i] = tmp;
-        tmp = users[j];
-        users[j] = users[i];
-        users[i] = tmp;
+        tmp = rows[j];
+        rows[j] = rows[i];
+        rows[i] = tmp;
       }
       else if(acs[j].current == acs[i].current && noks[j].current < noks[i].current){
         let tmp = acs[j];
@@ -137,9 +137,9 @@ app.get('/', async(req, res) => {
         tmp = matrix[j]; 
         matrix[j] = matrix[i];
         matrix[i] = tmp;
-        tmp = users[j];
-        users[j] = users[i];
-        users[i] = tmp;
+        tmp = rows[j];
+        rows[j] = rows[i];
+        rows[i] = tmp;
       }
     }
   }
