@@ -319,6 +319,60 @@ const PROBLEMS = [{
   category: 'SEMANA 5',
   url: 'https://www.aceptaelreto.com/problem/statement.php?id=318',
   difficulty: 2,
+}, {
+  problem_code: '281 - ',
+  domain: 'AER',
+  category: 'SEMANA 5',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=281',
+  difficulty: 1,
+}, {
+  problem_code: '292 - ',
+  domain: 'AER',
+  category: 'SEMANA 5',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=292',
+  difficulty: 5,
+}, {
+  problem_code: 'SHPATH',
+  domain: 'SPOJ',
+  category: 'SEMANA 5',
+  url: 'http://www.spoj.com/problems/SHPATH/',
+  difficulty: 2,
+}, {
+  problem_code: 'HIGHWAYS',
+  domain: 'SPOJ',
+  category: 'SEMANA 5',
+  url: 'http://www.spoj.com/problems/HIGHWAYS/',
+  difficulty: 1,
+}, {
+  problem_code: 'CDC12_E',
+  domain: 'SPOJ',
+  category: 'SEMANA 5',
+  url: 'http://www.spoj.com/problems/CDC12_E/',
+  difficulty: 3,
+}, {
+  problem_code: 'SUSY',
+  domain: 'SPOJ',
+  category: 'SEMANA 5',
+  url: 'http://www.spoj.com/problems/SUSY/',
+  difficulty: 6,
+}, {
+  problem_code: 'TRVCOST',
+  domain: 'SPOJ',
+  category: 'SEMANA 5',
+  url: 'http://www.spoj.com/problems/TRVCOST/',
+  difficulty: 0,
+}, {
+  problem_code: 'TRAFFICN',
+  domain: 'SPOJ',
+  category: 'SEMANA 5',
+  url: 'http://www.spoj.com/problems/TRAFFICN/',
+  difficulty: 3,
+}, {
+  problem_code: 'ADATRIP',
+  domain: 'SPOJ',
+  category: 'SEMANA 5',
+  url: 'http://www.spoj.com/problems/ADATRIP/',
+  difficulty: 0,
 }];
 
 Promise.all(PROBLEMS.map(problem => {
