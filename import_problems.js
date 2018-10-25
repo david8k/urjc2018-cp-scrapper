@@ -44,13 +44,13 @@ const PROBLEMS = [{
   category: 'SEMANA 1',
   url: 'https://www.aceptaelreto.com/problem/statement.php?id=437',
   difficulty: 2,
-}, {
+}, /*{
   problem_code: '413 - ',
   domain: 'AER',
   category: 'SEMANA 1',
   url: 'https://www.aceptaelreto.com/problem/statement.php?id=413',
   difficulty: 1,
-}, {
+},*/ {
   problem_code: '397 - ',
   domain: 'AER',
   category: 'SEMANA 1',
@@ -373,13 +373,13 @@ const PROBLEMS = [{
   category: 'SEMANA 5',
   url: 'http://www.spoj.com/problems/ADATRIP/',
   difficulty: 0,
-}, {
+},/* {
   problem_code: '116',
   domain: 'AER',
   category: 'SEMANA 6',
   url: 'https://www.aceptaelreto.com/problem/statement.php?id=116',
   difficulty: 0,
-}, {
+},*/ {
   problem_code: '117',
   domain: 'AER',
   category: 'SEMANA 6',
