@@ -451,6 +451,72 @@ const PROBLEMS = [{
   category: 'SEMANA 6',
   url: 'https://www.aceptaelreto.com/problem/statement.php?id=456',
   difficulty: 0,
+}, {
+  problem_code: '100',
+  domain: 'AER',
+  category: 'SEMANA 7',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=100',
+  difficulty: 0,
+}, {
+  problem_code: '300',
+  domain: 'AER',
+  category: 'SEMANA 7',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=300',
+  difficulty: 0,
+}, {
+  problem_code: '364',
+  domain: 'AER',
+  category: 'SEMANA 7',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=364',
+  difficulty: 0,
+}, {
+  problem_code: '372',
+  domain: 'AER',
+  category: 'SEMANA 7',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=372',
+  difficulty: 0,
+}, {
+  problem_code: '381',
+  domain: 'AER',
+  category: 'SEMANA 7',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=381',
+  difficulty: 0,
+}, {
+  problem_code: '411',
+  domain: 'AER',
+  category: 'SEMANA 7',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=411',
+  difficulty: 0,
+}, {
+  problem_code: '428',
+  domain: 'AER',
+  category: 'SEMANA 7',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=428',
+  difficulty: 0,
+}, {
+  problem_code: '439',
+  domain: 'AER',
+  category: 'SEMANA 7',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=439',
+  difficulty: 0,
+}, {
+  problem_code: '446',
+  domain: 'AER',
+  category: 'SEMANA 7',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=446',
+  difficulty: 0,
+}, {
+  problem_code: '452',
+  domain: 'AER',
+  category: 'SEMANA 7',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=452',
+  difficulty: 0,
+}, {
+  problem_code: '467',
+  domain: 'AER',
+  category: 'SEMANA 7',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=467',
+  difficulty: 0,
 }];
 
 Promise.all(PROBLEMS.map(problem => {
