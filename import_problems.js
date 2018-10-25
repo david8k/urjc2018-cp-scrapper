@@ -463,7 +463,7 @@ const PROBLEMS = [{
   category: 'SEMANA 7',
   url: 'https://www.aceptaelreto.com/problem/statement.php?id=300',
   difficulty: 0,
-}/*, {
+}, {
   problem_code: '364',
   domain: 'AER',
   category: 'SEMANA 7',
@@ -517,7 +517,7 @@ const PROBLEMS = [{
   category: 'SEMANA 7',
   url: 'https://www.aceptaelreto.com/problem/statement.php?id=467',
   difficulty: 0,
-}*/];
+}];
 
 Promise.all(PROBLEMS.map(problem => {
   return controller.createProblem(problem);
