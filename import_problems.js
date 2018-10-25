@@ -373,6 +373,12 @@ const PROBLEMS = [{
   category: 'SEMANA 5',
   url: 'http://www.spoj.com/problems/ADATRIP/',
   difficulty: 0,
+}, {
+  problem_code: 'ADATRIP',
+  domain: 'SPOJ',
+  category: 'SEMANA 6',
+  url: 'http://www.spoj.com/problems/ADATRIP/',
+  difficulty: 0,
 }];
 
 Promise.all(PROBLEMS.map(problem => {
