@@ -374,10 +374,10 @@ const PROBLEMS = [{
   url: 'http://www.spoj.com/problems/ADATRIP/',
   difficulty: 0,
 }, {
-  problem_code: 'ADATRIP',
-  domain: 'SPOJ',
+  problem_code: '452',
+  domain: 'AER',
   category: 'SEMANA 6',
-  url: 'http://www.spoj.com/problems/ADATRIP/',
+  url: 'https://www.aceptaelreto.com/problem/statement.php?id=452',
   difficulty: 0,
 }];
 
