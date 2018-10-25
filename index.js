@@ -153,7 +153,7 @@ app.get('/', async(req, res) => {
   res.renderVue('main', data, { head: { title: 'Training Info' } });
 });
 
-app.get('/telegram', async(req, res) => {
+app.get('/^\/(telegram?)\/$/', async(req, res) => {
   const users = await controller.getUsers();
   const rows = [];
   const cols = CATEGORIES;
