@@ -427,13 +427,13 @@ const PROBLEMS = [{
   category: 'SEMANA 6',
   url: 'https://www.aceptaelreto.com/problem/statement.php?id=407',
   difficulty: 0,
-}, {
+}, /* {
   problem_code: '413',
   domain: 'AER',
   category: 'SEMANA 6',
   url: 'https://www.aceptaelreto.com/problem/statement.php?id=413',
   difficulty: 0,
-}, {
+},*/ {
   problem_code: '433',
   domain: 'AER',
   category: 'SEMANA 6',
