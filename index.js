@@ -86,6 +86,23 @@ app.get(/^\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res) => {
   res.renderVue('week', data, { head: { title: 'URJC Training - ' + category } });
 });
 
+app.get(/^\/api\/users_problems\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res) => {
+  const category = req.params[0];
+  const users_problems = await controller.getUserProblemsFromCategory(category);
+  res.send(users_problems);
+});
+
+app.get(/^\/api\/problems\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res) => {
+  const category = req.params[0];
+  const problems = await controller.getProblemsFromCategory(category);
+  res.send(problems);
+});
+
+app.get(/^\/api\/users\/$/, async(req, res) => {
+  const users = await controller.getUsers();
+  res.send(users);
+});
+
 app.get('/', async(req, res) => {
   const users = await controller.getUsers();
   const rows = [];
