@@ -20,6 +20,7 @@ Acceso público, devuelve un JSON con los datos de los problemas, sustituir YEAR
 ### /api/user/ (POST)
 
 Dados los campos:
+
 | Campo         | Valor   | Descripción                                              |
 |:-------------:|:-------:|:--------------------------------------------------------:|
 | spoj\_handler | string  | Handler de SPOJ de un usuario                            |
@@ -32,6 +33,7 @@ Inserta un usuario nuevo en la BBDD para el curso 2019
 ### /api/user/ (DELETE)
 
 Borra un usuario de la BBDD dado su identifier. Campos requeridos.
+
 | Campo         | Valor   | Descripción                                              |
 |:-------------:|:-------:|:--------------------------------------------------------:|
 | identifier    | string  | Identificador unívoco de un usuario (nombre y apellidos) |
@@ -40,6 +42,7 @@ Borra un usuario de la BBDD dado su identifier. Campos requeridos.
 ### /api/problem/ (POST)
 
 Dados los campos:
+
 | Campo         | Valor   | Descripción                                              |
 |:-------------:|:-------:|:--------------------------------------------------------:|
 | problem\_code | string  | Código de un problema a mostrar en la web                |
@@ -54,6 +57,7 @@ Inserta un problema nuevo en la base de datos en la categoría seleccionada del 
 ### /api/problem/ (DELETE)
 
 Borra un problema de la BBDD dado su url. Campos requeridos.
+
 | Campo         | Valor   | Descripción                                              |
 |:-------------:|:-------:|:--------------------------------------------------------:|
 | url           | string  | Identificador unívoco de un usuario (nombre y apellidos) |
