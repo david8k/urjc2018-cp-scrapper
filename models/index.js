@@ -18,8 +18,11 @@ module.exports.getProblems = year => {
   return Problem.find({ year }, { _id: 0, __v: 0 });
 };
 
-module.exports.getUsers = year => {
-  return User.find({ years: { "$in": [year] } }, { _id: 0, __v: 0 });
+module.exports.getUsers = (year, show_id=1) => {
+  if(show_id)
+    return User.find({ years: { "$in": [year] } });
+  else
+    return User.find({ years: { "$in": [year] } }, { __id: 0 } );
 };
 
 module.exports.solveProblem = async(code, domain, handler, solved, tried) => {
@@ -74,6 +77,7 @@ module.exports.getProblemsCount = async(user, category, year) => {
       $match: { "problems.year": year, "problems.category": category, "users._id": user._id, "solved": true }
     }
   ]);
+  debugger;
   const unsolved_problems = await UserProblem.aggregate([
     {
       $lookup: {

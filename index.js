@@ -8,6 +8,7 @@ const aer = require('./crawlers/aer');
 const spoj = require('./crawlers/spoj');
 const bodyParser = require('body-parser');
 
+let cached_tables = [];
 const app = express();
 const PORT = process.env.PORT || 3000;
 const SECRET = process.env.TG_SECRET || require('./keys').TG_SECRET || '0';
@@ -112,7 +113,7 @@ app.get(/^\/api\/(\d{4})\/problems\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res)
 
 app.get(/^\/api\/(\d{4})\/users\/$/, async(req, res) => {
   const year = Number(req.params[0]);
-  const users = await controller.getUsers(year);
+  const users = await controller.getUsers(year, 0);
   res.send(users);
 });
 
@@ -207,82 +208,94 @@ app.post(/^\/api\/user\/$/, async(req, res) => {
 
 app.get(/^\/(\d{4})\/$/, async(req, res) => {
   const year = Number(req.params[0]);
-  const users = await controller.getUsers(year);
-  const rows = [];
-  const cols = CATEGORIES[year];
-  const acs = new Array(users.length).fill(null).map(() => {
-    return { total: 0, current: 0 };
-  });
-  const noks = new Array(users.length).fill(null).map(() => {
-    return { total: 0, current: 0 };
-  });
-  const matrix = new Array(users.length)
-    .fill(null)
-    .map(() => new Array(CATEGORIES[year].length));
-  users.forEach(user => {
-    rows.push(user.identifier);
-  });
-  await Promise.all(users.map(async(user, i) => {
-    return Promise.all(CATEGORIES[year].map(async(category, j) => {
-      matrix[i][j] = await controller.getProblemsCount(user, category, year);
-      acs[i].current += matrix[i][j].solved;
-      acs[i].total += matrix[i][j].total;
-      noks[i].current += matrix[i][j].tried;
-      noks[i].total += matrix[i][j].total;
-    }));
-  }));
-  for(let i=0;i<users.length;i++){
-    for(let j=0;j<i;j++){
-      if(acs[j].current < acs[i].current){
-        let tmp = acs[j];
-        acs[j] = acs[i];
-        acs[i] = tmp;
-        tmp = noks[j];
-        noks[j] = noks[i];
-        noks[i] = tmp;
-        tmp = matrix[j]; 
-        matrix[j] = matrix[i];
-        matrix[i] = tmp;
-        tmp = rows[j];
-        rows[j] = rows[i];
-        rows[i] = tmp;
-      }
-      else if(acs[j].current == acs[i].current && noks[j].current < noks[i].current){
-        let tmp = acs[j];
-        acs[j] = acs[i];
-        acs[i] = tmp;
-        tmp = noks[j];
-        noks[j] = noks[i];
-        noks[i] = tmp;
-        tmp = matrix[j]; 
-        matrix[j] = matrix[i];
-        matrix[i] = tmp;
-        tmp = rows[j];
-        rows[j] = rows[i];
-        rows[i] = tmp;
-      }
-    }
-  }
-  const data = {
-    cols,
-    rows,
-    matrix,
-    acs,
-    noks,
-    year,
-  };
+  const data = (await cached_tables).filter(x => x.year === year)[0] || {};
   res.renderVue('main', data, { head: { title: 'Training Info' } });
 });
 
-app.listen(PORT, () => {
+const updateTables = () => {
+  cached_tables = Promise.all(YEARS_SUPPORTED.map(async(year) => {
+    const users = await controller.getUsers(year);
+    const rows = [];
+    const cols = CATEGORIES[year];
+    const acs = new Array(users.length).fill(null).map(() => {
+      return { total: 0, current: 0 };
+    });
+    const noks = new Array(users.length).fill(null).map(() => {
+      return { total: 0, current: 0 };
+    });
+    const matrix = new Array(users.length)
+      .fill(null)
+      .map(() => new Array(CATEGORIES[year].length));
+    users.forEach(user => {
+      rows.push(user.identifier);
+    });
+    await Promise.all(users.map(async(user, i) => {
+      return Promise.all(CATEGORIES[year].map(async(category, j) => {
+        matrix[i][j] = await controller.getProblemsCount(user, category, year);
+        acs[i].current += matrix[i][j].solved;
+        acs[i].total += matrix[i][j].total;
+        noks[i].current += matrix[i][j].tried;
+        noks[i].total += matrix[i][j].total;
+      }));
+    }));
+    for(let i=0;i<users.length;i++){
+      for(let j=0;j<i;j++){
+        if(acs[j].current < acs[i].current){
+          let tmp = acs[j];
+          acs[j] = acs[i];
+          acs[i] = tmp;
+          tmp = noks[j];
+          noks[j] = noks[i];
+          noks[i] = tmp;
+          tmp = matrix[j]; 
+          matrix[j] = matrix[i];
+          matrix[i] = tmp;
+          tmp = rows[j];
+          rows[j] = rows[i];
+          rows[i] = tmp;
+        }
+        else if(acs[j].current == acs[i].current && noks[j].current < noks[i].current){
+          let tmp = acs[j];
+          acs[j] = acs[i];
+          acs[i] = tmp;
+          tmp = noks[j];
+          noks[j] = noks[i];
+          noks[i] = tmp;
+          tmp = matrix[j]; 
+          matrix[j] = matrix[i];
+          matrix[i] = tmp;
+          tmp = rows[j];
+          rows[j] = rows[i];
+          rows[i] = tmp;
+        }
+      }
+    }
+    return {
+      cols,
+      rows,
+      matrix,
+      acs,
+      noks,
+      year
+    }
+  }));
+};
+
+app.listen(PORT, async() => {
+  await updateTables();
   console.log('Server is on');
 });
 
-schedule.scheduleJob('*/20 * * * *', async() => {
-  const aer_users = (await controller.getUsers(2019)).map(user => user.aer_handler);
-  const spoj_users = (await controller.getUsers(2019)).map(user => user.spoj_handler);
-  const aer_problems = (await controller.getProblems(2019)).filter(p => p.domain === 'AER').map(p => p.problem_code);
-  const spoj_problems = (await controller.getProblems(2019)).filter(p => p.domain === 'SPOJ').map(p => p.problem_code);
+schedule.scheduleJob('*/30 * * * *', async() => {
+  await Promise.all(YEARS_SUPPORTED.map(controller.getUsers));
+  const aer_users = (await Promise.all(YEARS_SUPPORTED.map(controller.getUsers)))
+    .map(user => user.aer_handler);
+  const spoj_users = (await Promise.all(YEARS_SUPPORTED.map(controller.getUsers)))
+    .map(user => user.spoj_handler);
+  const aer_problems = (await Promise.all(YEARS_SUPPORTED.map(controller.getProblems)))
+    .filter(p => p.domain === 'AER').map(p => p.problem_code);
+  const spoj_problems = (await Promise.all(YEARS_SUPPORTED.map(controller.getProblems)))
+    .filter(p => p.domain === 'SPOJ').map(p => p.problem_code);
   const aer_responses = (await aer.crawl(aer_users, aer_problems)).reduce((a,b) => a.concat(b), []);
   await Promise.all(aer_responses.map(async(response) => {
     if(response.solved || response.tried){
@@ -297,4 +310,5 @@ schedule.scheduleJob('*/20 * * * *', async() => {
     }
     return Promise.resolve(null);
   }));
+  updateTables();
 });
