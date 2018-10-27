@@ -1,13 +1,7 @@
 <template> 
   <div>
     <div class="col-10 offset-1">
-      <h3>Para participar en esta tabla</h3>
-      <ul>
-        <li>Curso Programación URJC 2018</a></li>
-        <li>Esperar hasta que uno de los contribuyentes te agregue manualmente.</li>
-        <li>Después, todos los resultados se actualizarán cada 20 minutos.</li>
-        <li>Próxima actualización en <span class="text-danger font-weight-bold" id="next-update"></span></li>
-      </ul>
+      <h3>Tabla {{year}}</h3>
       <table class="table table-bordered table-hover" border="1">
         <thead>
             <td style="font-weight: bold; text-align: center">USUARIO</td>

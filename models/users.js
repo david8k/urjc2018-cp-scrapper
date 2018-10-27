@@ -5,6 +5,7 @@ const usersSchema = new mongoose.Schema({
   spoj_handler: { type: String },
   aer_handler: { type: String },
   identifier: { type: String },
+  years: { type: [Number], default: [2019] },
 });
 
 module.exports = mongoose.model('Users', usersSchema);

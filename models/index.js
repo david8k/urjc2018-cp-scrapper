@@ -10,16 +10,16 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection Error!'));
 db.once('open', function(){});
 
-module.exports.getProblemsFromCategory = category => {
-  return Problem.find({ category });
+module.exports.getProblemsFromCategory = (year, category) => {
+  return Problem.find({ year, category }, { _id: 0, __v: 0 });
 };
 
-module.exports.getProblems = () => {
-  return Problem.find({});
+module.exports.getProblems = year => {
+  return Problem.find({ year }, { _id: 0, __v: 0 });
 };
 
-module.exports.getUsers = () => {
-  return User.find({});
+module.exports.getUsers = year => {
+  return User.find({ years: { "$in": [year] } }, { _id: 0, __v: 0 });
 };
 
 module.exports.solveProblem = async(code, domain, handler, solved, tried) => {
@@ -162,6 +162,14 @@ module.exports.createUser = user => {
       return user_model.save();
     }
   });
+};
+
+module.exports.removeProblem = url => {
+  return Problem.remove({ url }, { justOne: true });
+};
+
+module.exports.removeUser = identifier => {
+  return User.remove({ identifier }, { justOne: true });
 };
 
 module.exports.createProblem = problem => {

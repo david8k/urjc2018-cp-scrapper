@@ -1,7 +1,7 @@
 <template> 
   <div>
     <div class="col-10 offset-1">
-      <a class="btn btn-warning float-right" href="/">Volver</a>
+      <a class="btn btn-warning float-right" href="/{{year}}/">Volver</a>
       <table class="table table-bordered table-hover" border="1">
         <thead>
             <td style="font-weight: bold; text-align: center">USUARIO</td>

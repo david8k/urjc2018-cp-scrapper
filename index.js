@@ -6,11 +6,17 @@ const path = require('path');
 const controller = require('./models/index');
 const aer = require('./crawlers/aer');
 const spoj = require('./crawlers/spoj');
+const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const SECRET = process.env.TG_SECRET || require('./keys').TG_SECRET || '0';
 
-const CATEGORIES = ['SEMANA 1', 'SEMANA 2-1', 'SEMANA 2-2', 'SEMANA 3', 'SEMANA 4', 'SEMANA 5'];
+const YEARS_SUPPORTED = [2018, 2019];
+const CATEGORIES = {
+  2018: ['SEMANA 1', 'SEMANA 2-1', 'SEMANA 2-2', 'SEMANA 3', 'SEMANA 4', 'SEMANA 5'],
+  2019: ['SEMANA 1']
+};
 
 const vueOptions = {
   rootPath: path.join(__dirname, './views'),
@@ -48,12 +54,15 @@ const vueOptions = {
 const expressVueMiddleware = expressVue.init(vueOptions);
 app.use(expressVueMiddleware);
 app.use(express.static(path.join(__dirname, 'static')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get(/^\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res) => {
-  const category = req.params[0];
-  const problems = await controller.getProblemsFromCategory(category);
-  const users = await controller.getUsers();
-  const users_problems = await controller.getUserProblemsFromCategory(category);
+app.get(/^\/(\d{4})\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res) => {
+  const year = Number(req.params[0]);
+  const category = req.params[1];
+  const problems = await controller.getProblemsFromCategory(year, category);
+  const users = await controller.getUsers(year);
+  const users_problems = await controller.getUserProblemsFromCategory(year, category);
   const rows = [];
   const cols = [];
   const matrix = new Array(users.length)
@@ -81,32 +90,105 @@ app.get(/^\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res) => {
     problems,
     cols,
     rows,
-    matrix
+    matrix,
+    year
   };
   res.renderVue('week', data, { head: { title: 'URJC Training - ' + category } });
 });
 
-app.get(/^\/api\/users_problems\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res) => {
-  const category = req.params[0];
-  const users_problems = await controller.getUserProblemsFromCategory(category);
+app.get(/^\/api\/(\d{4})\/users_problems\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res) => {
+  const year = Number(req.params[0]);
+  const category = req.params[1];
+  const users_problems = await controller.getUserProblemsFromCategory(year, category);
   res.send(users_problems);
 });
 
-app.get(/^\/api\/problems\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res) => {
-  const category = req.params[0];
-  const problems = await controller.getProblemsFromCategory(category);
+app.get(/^\/api\/(\d{4})\/problems\/(SEMANA\%20\d+(\-\d+)?)\/$/, async(req, res) => {
+  const year = Number(req.params[0]);
+  const category = req.params[1];
+  const problems = await controller.getProblemsFromCategory(year, category);
   res.send(problems);
 });
 
-app.get(/^\/api\/users\/$/, async(req, res) => {
-  const users = await controller.getUsers();
+app.get(/^\/api\/(\d{4})\/users\/$/, async(req, res) => {
+  const year = Number(req.params[0]);
+  const users = await controller.getUsers(year);
   res.send(users);
 });
 
+
 app.get('/', async(req, res) => {
-  const users = await controller.getUsers();
+  const years = YEARS_SUPPORTED;
+  res.renderVue('archive', { years }, { head: { title: 'Training Info' } });
+});
+
+app.delete(/^\/api\/problem\/$/, async(req, res) => {
+  const { url } = req.body;
+  await controller.removeProblem(url);
+  res.status(200);
+  res.send({ success: true });
+});
+
+app.delete(/^\/api\/user\/$/, async(req, res) => {
+  const { identifier } = req.body;
+  await controller.removeUser(identifier);
+  res.status(200);
+  res.send({ success: true });
+});
+
+app.post(/^\/api\/problem\/$/, async(req, res) => {
+  console.log(req.body);
+  const { problem_code, domain, category, url, difficulty } = req.body;
+  console.log(problem_code, domain, category, url, difficulty);
+  if(!problem_code || !domain || !category || !url || !difficulty){
+    res.status(400);
+    res.send({ error: 'Fields are not present', success: false });
+  }
+  else{
+    const stars = Number(difficulty);
+    if(isNaN(stars) || stars < 1 || stars > 5){
+      res.status(400);
+      res.send({ success: false, error: 'Difficulty should be a number ranging from 1 to 5' });
+    }
+    else{
+      const response = controller.createProblem({ problem_code, domain, category, url, difficulty });
+      if(response.error){
+        res.status(400);
+        res.send({ error, success: false });
+      }
+      else{
+        res.status(200);
+        res.send({ success: true });
+      }
+    }
+  }
+});
+
+app.post(/^\/api\/user\/$/, async(req, res) => {
+  const { spoj_handler, aer_handler, identifier } = req.body;
+  if(!spoj_handler || !aer_handler || !identifier){
+    res.status(400);
+    res.send({ error: 'Fields are not present', success: false });
+  }
+  else{
+    if(isNaN(aer_handler)){
+      res.status(400);
+      res.send({ error: 'AER handler should be a number', success: false });
+    }
+    else{
+      controller.createUser({ identifier, spoj_handler, aer_handler });
+      res.status(200);
+      res.send({ success: true });
+    }
+  }
+});
+
+
+app.get(/^\/(\d{4})\/$/, async(req, res) => {
+  const year = Number(req.params[0]);
+  const users = await controller.getUsers(year);
   const rows = [];
-  const cols = CATEGORIES;
+  const cols = CATEGORIES[year];
   const acs = new Array(users.length).fill(null).map(() => {
     return { total: 0, current: 0 };
   });
@@ -115,12 +197,12 @@ app.get('/', async(req, res) => {
   });
   const matrix = new Array(users.length)
     .fill(null)
-    .map(() => new Array(CATEGORIES.length));
+    .map(() => new Array(CATEGORIES[year].length));
   users.forEach(user => {
     rows.push(user.identifier);
   });
   await Promise.all(users.map(async(user, i) => {
-    return Promise.all(CATEGORIES.map(async(category, j) => {
+    return Promise.all(CATEGORIES[year].map(async(category, j) => {
       matrix[i][j] = await controller.getProblemsCount(user, category);
       acs[i].current += matrix[i][j].solved;
       acs[i].total += matrix[i][j].total;
@@ -166,6 +248,7 @@ app.get('/', async(req, res) => {
     matrix,
     acs,
     noks,
+    year,
   };
   res.renderVue('main', data, { head: { title: 'Training Info' } });
 });
