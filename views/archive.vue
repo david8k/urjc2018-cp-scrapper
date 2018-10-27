@@ -6,6 +6,8 @@
       <ul>
         <li>No hay notas importantes</li>
       </ul>
+      <a class="col-5 btn btn-success" href="/2018/">CURSO 2018</a>
+      <a class="col-5 btn btn-success" href="/2019/">CURSO 2019</a>
     </div>
   </div>
 </template>

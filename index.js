@@ -123,66 +123,87 @@ app.get('/', async(req, res) => {
 });
 
 app.delete(/^\/api\/problem\/$/, async(req, res) => {
-  const { url } = req.body;
-  await controller.removeProblem(url);
-  res.status(200);
-  res.send({ success: true });
+  const { url, api_secret } = req.body;
+  if(api_secret != SECRET){
+    res.status(403);
+    res.send({ success: false, error: 'Secret error' });
+  }
+  else{
+    await controller.removeProblem(url);
+    res.status(200);
+    res.send({ success: true });
+  }
 });
 
 app.delete(/^\/api\/user\/$/, async(req, res) => {
-  const { identifier } = req.body;
-  await controller.removeUser(identifier);
-  res.status(200);
-  res.send({ success: true });
+  const { identifier, api_secret } = req.body;
+  if(api_secret != SECRET){
+    res.status(403);
+    res.send({ success: false, error: 'Secret error' });
+  }
+  else{
+    await controller.removeUser(identifier);
+    res.status(200);
+    res.send({ success: true });
+  }
 });
 
 app.post(/^\/api\/problem\/$/, async(req, res) => {
-  console.log(req.body);
-  const { problem_code, domain, category, url, difficulty } = req.body;
-  console.log(problem_code, domain, category, url, difficulty);
-  if(!problem_code || !domain || !category || !url || !difficulty){
-    res.status(400);
-    res.send({ error: 'Fields are not present', success: false });
+  const { problem_code, domain, category, url, difficulty, api_secret } = req.body;
+  if(api_secret !== SECRET){
+    res.status(403);
+    res.send({ success: false, error: 'API Secret is not valid' });
   }
   else{
-    const stars = Number(difficulty);
-    if(isNaN(stars) || stars < 1 || stars > 5){
+    if(!problem_code || !domain || !category || !url || !difficulty){
       res.status(400);
-      res.send({ success: false, error: 'Difficulty should be a number ranging from 1 to 5' });
+      res.send({ error: 'Fields are not present', success: false });
     }
     else{
-      const response = controller.createProblem({ problem_code, domain, category, url, difficulty });
-      if(response.error){
+      const stars = Number(difficulty);
+      if(isNaN(stars) || stars < 1 || stars > 5){
         res.status(400);
-        res.send({ error, success: false });
+        res.send({ success: false, error: 'Difficulty should be a number ranging from 1 to 5' });
       }
       else{
-        res.status(200);
-        res.send({ success: true });
+        const response = controller.createProblem({ problem_code, domain, category, url, difficulty });
+        if(response.error){
+          res.status(400);
+          res.send({ error, success: false });
+        }
+        else{
+          res.status(200);
+          res.send({ success: true });
+        }
       }
     }
   }
 });
 
 app.post(/^\/api\/user\/$/, async(req, res) => {
-  const { spoj_handler, aer_handler, identifier } = req.body;
-  if(!spoj_handler || !aer_handler || !identifier){
-    res.status(400);
-    res.send({ error: 'Fields are not present', success: false });
+  const { spoj_handler, aer_handler, identifier, api_secret } = req.body;
+  if(api_secret !== SECRET){
+    res.status(403);
+    res.send({ success: false, error: 'API Secret is not valid' });
   }
   else{
-    if(isNaN(aer_handler)){
+    if(!spoj_handler || !aer_handler || !identifier){
       res.status(400);
-      res.send({ error: 'AER handler should be a number', success: false });
+      res.send({ error: 'Fields are not present', success: false });
     }
     else{
-      controller.createUser({ identifier, spoj_handler, aer_handler });
-      res.status(200);
-      res.send({ success: true });
+      if(isNaN(aer_handler)){
+        res.status(400);
+        res.send({ error: 'AER handler should be a number', success: false });
+      }
+      else{
+        controller.createUser({ identifier, spoj_handler, aer_handler });
+        res.status(200);
+        res.send({ success: true });
+      }
     }
   }
 });
-
 
 app.get(/^\/(\d{4})\/$/, async(req, res) => {
   const year = Number(req.params[0]);
@@ -203,7 +224,7 @@ app.get(/^\/(\d{4})\/$/, async(req, res) => {
   });
   await Promise.all(users.map(async(user, i) => {
     return Promise.all(CATEGORIES[year].map(async(category, j) => {
-      matrix[i][j] = await controller.getProblemsCount(user, category);
+      matrix[i][j] = await controller.getProblemsCount(user, category, year);
       acs[i].current += matrix[i][j].solved;
       acs[i].total += matrix[i][j].total;
       noks[i].current += matrix[i][j].tried;
@@ -258,10 +279,10 @@ app.listen(PORT, () => {
 });
 
 schedule.scheduleJob('*/20 * * * *', async() => {
-  const aer_users = (await controller.getUsers()).map(user => user.aer_handler);
-  const spoj_users = (await controller.getUsers()).map(user => user.spoj_handler);
-  const aer_problems = (await controller.getProblems()).filter(p => p.domain === 'AER').map(p => p.problem_code);
-  const spoj_problems = (await controller.getProblems()).filter(p => p.domain === 'SPOJ').map(p => p.problem_code);
+  const aer_users = (await controller.getUsers(2019)).map(user => user.aer_handler);
+  const spoj_users = (await controller.getUsers(2019)).map(user => user.spoj_handler);
+  const aer_problems = (await controller.getProblems(2019)).filter(p => p.domain === 'AER').map(p => p.problem_code);
+  const spoj_problems = (await controller.getProblems(2019)).filter(p => p.domain === 'SPOJ').map(p => p.problem_code);
   const aer_responses = (await aer.crawl(aer_users, aer_problems)).reduce((a,b) => a.concat(b), []);
   await Promise.all(aer_responses.map(async(response) => {
     if(response.solved || response.tried){

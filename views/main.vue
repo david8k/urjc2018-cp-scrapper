@@ -6,7 +6,7 @@
         <thead>
             <td style="font-weight: bold; text-align: center">USUARIO</td>
             <td style="font-weight: bold; text-align: center" v-for="col of cols">
-              <a target="_blank" :href="'/'+col+'/'">{{col}}</a>
+              <a target="_blank" :href="'/'+year+'/'+col+'/'">{{col}}</a>
             </td>
             <td style="font-weight: bold; text-align: center">PROGRESO</td>
         </thead>

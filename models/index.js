@@ -45,8 +45,8 @@ module.exports.getUser = (handler_type, handler) => {
   return {};
 };
 
-module.exports.getProblemsCount = async(user, category) => {
-  const total_problems = await Problem.find({ category }).count();
+module.exports.getProblemsCount = async(user, category, year) => {
+  const total_problems = await Problem.find({ year, category }).count();
   const solved_problems = await UserProblem.aggregate([
     {
       $lookup: {
@@ -71,7 +71,7 @@ module.exports.getProblemsCount = async(user, category) => {
       $unwind: "$users"
     },
     {
-      $match: { "problems.category": category, "users._id": user._id, "solved": true }
+      $match: { "problems.year": year, "problems.category": category, "users._id": user._id, "solved": true }
     }
   ]);
   const unsolved_problems = await UserProblem.aggregate([
@@ -98,7 +98,7 @@ module.exports.getProblemsCount = async(user, category) => {
       $unwind: "$users"
     },
     {
-      $match: { "problems.category": category, "users._id": user._id, "tried": true }
+      $match: { "problems.year": year, "problems.category": category, "users._id": user._id, "tried": true }
     }
   ]);
   return {
@@ -108,7 +108,7 @@ module.exports.getProblemsCount = async(user, category) => {
   };
 };
 
-module.exports.getUserProblemsFromCategory = category => {
+module.exports.getUserProblemsFromCategory = (year, category) => {
   return UserProblem.aggregate([
     {
       $lookup: {
@@ -133,7 +133,7 @@ module.exports.getUserProblemsFromCategory = category => {
       $unwind: "$users"
     },
     {
-      $match: { "problems.category": category }
+      $match: { "problems.category": category, "problems.year": year }
     }
   ]);
 };
@@ -165,11 +165,11 @@ module.exports.createUser = user => {
 };
 
 module.exports.removeProblem = url => {
-  return Problem.remove({ url }, { justOne: true });
+  return Problem.remove({ url });
 };
 
 module.exports.removeUser = identifier => {
-  return User.remove({ identifier }, { justOne: true });
+  return User.remove({ identifier });
 };
 
 module.exports.createProblem = problem => {
