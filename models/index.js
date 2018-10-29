@@ -10,6 +10,8 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection Error!'));
 db.once('open', function(){});
 
+const CURRENT_YEAR = 2019;
+
 module.exports.getProblemsFromCategory = (year, category) => {
   return Problem.find({ year, category }, { _id: 0, __v: 0 });
 };
@@ -159,7 +161,9 @@ module.exports.setUsersProblems = users_problems => {
 module.exports.createUser = user => {
   return User.findOne({ $or: [ { aer_handler: user.aer_handler }, { spoj_handler: user.spoj_handler }] }).then(user_exists => {
     if(user_exists){
-      return { error: 'User with these handlers already exists' };
+      const years = new Set(user_exists.years);
+      years.add(CURRENT_YEAR);
+      return User.update({ $or: [ { aer_handler: user.aer_handler }, { spoj_handler: user.spoj_handler }] }, { $set: { years: [...years], identifier: user.identifier, aer_handler: user.aer_handler, spoj_handler: user.spoj_handler } });
     }
     else{
       const user_model = new User(user);
