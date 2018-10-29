@@ -31,26 +31,6 @@
 
 <script>
 export default {
-  data: function(){ return {}; },
-  mounted: function(){
-    setInterval(function(){
-      const this_date = new Date();
-      const hours = this_date.getHours();
-      const minutes = this_date.getMinutes();
-      const seconds = this_date.getSeconds();
-      const now_date = new Date();
-      const target_date = now_date.setMinutes(parseInt(minutes/20)*20+20, 0, 0);
-      let next_hours = parseInt((target_date - this_date) / 1000);
-      let next_seconds = parseInt(next_hours) % 60;
-      next_hours /= 60;
-      let next_minutes = parseInt(next_hours) % 60;
-      next_hours /= 60;
-      next_hours = parseInt(next_hours);
-      document.querySelector('#next-update').innerText = ('00'+next_hours.toString()).slice(-2)+':'+
-        ('00'+next_minutes.toString()).slice(-2)+':'+
-        ('00'+next_seconds.toString()).slice(-2);
-      if(next_hours <= 0 && next_minutes <= 0 && next_seconds <= 0) document.location.reload();
-    }, 1000);
-  }
+  data: function(){ return {}; }
 }
 </script>
