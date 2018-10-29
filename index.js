@@ -170,7 +170,7 @@ app.post(/^\/api\/problem\/$/, async(req, res) => {
         const response = await controller.createProblem({ problem_code, domain, category, url, difficulty });
         if(response.error){
           res.status(400);
-          res.send({ error, success: false });
+          res.send({ error: response.error, success: false });
         }
         else{
           res.status(200);
@@ -201,7 +201,7 @@ app.post(/^\/api\/user\/$/, async(req, res) => {
         const response = await controller.createUser({ identifier, spoj_handler, aer_handler });
         if(response.error){
           res.status(400);
-          res.send({ error, success: false });
+          res.send({ error: response.error, success: false });
         }
         else{
           res.status(200);
