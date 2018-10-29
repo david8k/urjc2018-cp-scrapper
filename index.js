@@ -167,7 +167,7 @@ app.post(/^\/api\/problem\/$/, async(req, res) => {
         res.send({ success: false, error: 'Difficulty should be a number ranging from 1 to 5' });
       }
       else{
-        const response = controller.createProblem({ problem_code, domain, category, url, difficulty });
+        const response = await controller.createProblem({ problem_code, domain, category, url, difficulty });
         if(response.error){
           res.status(400);
           res.send({ error, success: false });
@@ -198,9 +198,15 @@ app.post(/^\/api\/user\/$/, async(req, res) => {
         res.send({ error: 'AER handler should be a number', success: false });
       }
       else{
-        controller.createUser({ identifier, spoj_handler, aer_handler });
-        res.status(200);
-        res.send({ success: true });
+        const response = await controller.createUser({ identifier, spoj_handler, aer_handler });
+        if(response.error){
+          res.status(400);
+          res.send({ error, success: false });
+        }
+        else{
+          res.status(200);
+          res.send({ success: true });
+        }
       }
     }
   }
@@ -289,12 +295,16 @@ app.listen(PORT, async() => {
 schedule.scheduleJob('*/30 * * * *', async() => {
   await Promise.all(YEARS_SUPPORTED.map(controller.getUsers));
   const aer_users = (await Promise.all(YEARS_SUPPORTED.map(controller.getUsers)))
+    .reduce((a, b) => a.concat(b), [])
     .map(user => user.aer_handler);
   const spoj_users = (await Promise.all(YEARS_SUPPORTED.map(controller.getUsers)))
+    .reduce((a, b) => a.concat(b), [])
     .map(user => user.spoj_handler);
   const aer_problems = (await Promise.all(YEARS_SUPPORTED.map(controller.getProblems)))
+    .reduce((a, b) => a.concat(b), [])
     .filter(p => p.domain === 'AER').map(p => p.problem_code);
   const spoj_problems = (await Promise.all(YEARS_SUPPORTED.map(controller.getProblems)))
+    .reduce((a, b) => a.concat(b), [])
     .filter(p => p.domain === 'SPOJ').map(p => p.problem_code);
   const aer_responses = (await aer.crawl(aer_users, aer_problems)).reduce((a,b) => a.concat(b), []);
   await Promise.all(aer_responses.map(async(response) => {
@@ -310,5 +320,5 @@ schedule.scheduleJob('*/30 * * * *', async() => {
     }
     return Promise.resolve(null);
   }));
-  updateTables();
+  await updateTables();
 });
