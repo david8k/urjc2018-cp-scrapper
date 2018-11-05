@@ -13,11 +13,11 @@ db.once('open', function(){});
 const CURRENT_YEAR = 2019;
 
 module.exports.getProblemsFromCategory = (year, category) => {
-  return Problem.find({ year, category }, { _id: 0, __v: 0 });
+  return Problem.find({ years: { "$in": [year] }, category }, { _id: 0, __v: 0 });
 };
 
 module.exports.getProblems = year => {
-  return Problem.find({ year }, { _id: 0, __v: 0 });
+  return Problem.find({ years: { "$in": [year] } }, { _id: 0, __v: 0 });
 };
 
 module.exports.getUsers = (year, show_id=1) => {
@@ -51,7 +51,7 @@ module.exports.getUser = (handler_type, handler) => {
 };
 
 module.exports.getProblemsCount = async(user, category, year) => {
-  const total_problems = await Problem.find({ year, category }).count();
+  const total_problems = await Problem.find({ years: { "$in": [year] }, category }).count();
   const solved_problems = await UserProblem.aggregate([
     {
       $lookup: {
@@ -76,7 +76,7 @@ module.exports.getProblemsCount = async(user, category, year) => {
       $unwind: "$users"
     },
     {
-      $match: { "problems.year": year, "problems.category": category, "users._id": user._id, "solved": true }
+      $match: { "problems.years": { "$in": [year] }, "problems.category": category, "users._id": user._id, "solved": true }
     }
   ]);
   debugger;
@@ -104,7 +104,7 @@ module.exports.getProblemsCount = async(user, category, year) => {
       $unwind: "$users"
     },
     {
-      $match: { "problems.year": year, "problems.category": category, "users._id": user._id, "tried": true }
+      $match: { "problems.years": { "$in": [year] }, "problems.category": category, "users._id": user._id, "tried": true }
     }
   ]);
   return {
@@ -139,7 +139,7 @@ module.exports.getUserProblemsFromCategory = (year, category) => {
       $unwind: "$users"
     },
     {
-      $match: { "problems.category": category, "problems.year": year }
+      $match: { "problems.category": category, "problems.years": { "$in": [year] } }
     }
   ]);
 };
@@ -173,17 +173,35 @@ module.exports.createUser = user => {
 };
 
 module.exports.removeProblem = url => {
-  return Problem.remove({ url });
+  return Problem.findOne({ url }).then(problem => {
+    if(!problem){
+      return { error: 'Problem URL does not exist' };
+    }
+    else{
+      const years = problem.years.filter(year => year != CURRENT_YEAR);
+      return Problem.update({ url }, { $set: { years } });
+    }
+  });
 };
 
 module.exports.removeUser = identifier => {
-  return User.remove({ identifier });
+  return User.findOne({ identifier }).then(user => {
+    if(!user){
+      return { error: 'User identifier does not exist' };
+    }
+    else{
+      const years = user.years.filter(year => year != CURRENT_YEAR);
+      return User.update({ identifier }, { $set: { years } });
+    }
+  });
 };
 
 module.exports.createProblem = problem => {
   return Problem.findOne({ url: problem.url }).then(problem_exists => {
     if(problem_exists){
-      return { error: 'Problem with this URL already exists' };
+      const years = new Set(problem_exists.years);
+      years.add(CURRENT_YEAR);
+      return Problem.update({ url: problem.url }, { $set: { years: [...years], problem_code: problem.problem_code, domain: problem.domain, category: problem.category, difficulty: problem.difficulty } });
     }
     else{
       const problem_model = new Problem(problem);

@@ -1,7 +1,11 @@
 <template> 
   <div>
     <div class="col-10 offset-1">
-      <h3>Tabla {{year}}</h3>
+      <div class="row">
+      <div class="col-5"><h3>Tabla {{year}}</h3></div>
+      <div class="col-5">
+        <a class="btn btn-warning float-right" href="/">Volver</a>
+      </div>
       <table class="table table-bordered table-hover" border="1">
         <thead>
             <td style="font-weight: bold; text-align: center">USUARIO</td>
