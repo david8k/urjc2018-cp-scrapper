@@ -16,7 +16,7 @@ const SECRET = process.env.TG_SECRET || require('./keys').TG_SECRET || '0';
 const YEARS_SUPPORTED = [2018, 2019];
 const CATEGORIES = {
   2018: ['SEMANA 1', 'SEMANA 2-1', 'SEMANA 2-2', 'SEMANA 3', 'SEMANA 4', 'SEMANA 5'],
-  2019: ['SEMANA 1']
+  2019: ['SEMANA 1', 'SEMANA 2', 'SEMANA 3', 'SEMANA 4']
 };
 
 const vueOptions = {
