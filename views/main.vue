@@ -3,7 +3,7 @@
     <div class="col-10 offset-1">
       <div class="row">
       <div class="col-5"><h3>Tabla {{year}}</h3></div>
-      <div class="col-5">
+      <div class="col-7">
         <a class="btn btn-warning float-right" href="/">Volver</a>
       </div>
       <table class="table table-bordered table-hover" border="1">
