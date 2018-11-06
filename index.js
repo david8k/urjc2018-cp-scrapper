@@ -294,16 +294,16 @@ app.listen(PORT, async() => {
 
 schedule.scheduleJob('*/30 * * * *', async() => {
   await Promise.all(YEARS_SUPPORTED.map(controller.getUsers));
-  const aer_users = (await Promise.all(YEARS_SUPPORTED.map(controller.getUsers)))
+  const aer_users = (await Promise.all([2019].map(controller.getUsers)))
     .reduce((a, b) => a.concat(b), [])
     .map(user => user.aer_handler);
-  const spoj_users = (await Promise.all(YEARS_SUPPORTED.map(controller.getUsers)))
+  const spoj_users = (await Promise.all([2019].map(controller.getUsers)))
     .reduce((a, b) => a.concat(b), [])
     .map(user => user.spoj_handler);
-  const aer_problems = (await Promise.all(YEARS_SUPPORTED.map(controller.getProblems)))
+  const aer_problems = (await Promise.all([2019].map(controller.getProblems)))
     .reduce((a, b) => a.concat(b), [])
     .filter(p => p.domain === 'AER').map(p => p.problem_code);
-  const spoj_problems = (await Promise.all(YEARS_SUPPORTED.map(controller.getProblems)))
+  const spoj_problems = (await Promise.all([2019].map(controller.getProblems)))
     .reduce((a, b) => a.concat(b), [])
     .filter(p => p.domain === 'SPOJ').map(p => p.problem_code);
   const aer_responses = (await aer.crawl(aer_users, aer_problems)).reduce((a,b) => a.concat(b), []);
